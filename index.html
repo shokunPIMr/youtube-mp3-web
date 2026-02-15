@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>YouTube MP3 Downloader</title>
+<style>
+body{
+    background:#111;
+    color:white;
+    font-family:Arial;
+    text-align:center;
+    padding-top:80px;
+}
+input{
+    width:400px;
+    padding:10px;
+    border-radius:10px;
+}
+button{
+    padding:12px 25px;
+    margin-top:20px;
+    background:red;
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+}
+img{margin-top:20px;border-radius:15px;}
+</style>
+</head>
+
+<body>
+
+<h1>YouTube → MP3</h1>
+
+<input id="url" placeholder="วางลิงก์ YouTube">
+<br>
+<button onclick="checkVideo()">ตรวจสอบ</button>
+
+<div id="preview"></div>
+
+<script src="/static/script.js"></script>
+
+</body>
+</html>

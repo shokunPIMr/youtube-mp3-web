@@ -1,41 +1,33 @@
-const API = "http://192.168.1.7";
+const API = "http://192.168.1.7:5000";
 
-async function checkVideo(){
+async function getInfo() {
     const url = document.getElementById("url").value;
 
-    let res = await fetch(API+"/info",{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({url})
+    const res = await fetch(API + "/info", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: url })
     });
 
-    let data = await res.json();
+    const data = await res.json();
 
-    if(data.error){
-        alert(data.error);
-        return;
-    }
-
-    document.getElementById("preview").innerHTML = `
-        <h2>${data.title}</h2>
-        <img src="${data.thumbnail}" width="300"><br>
-        <button onclick="download()">ดาวน์โหลด MP3</button>
-    `;
+    document.getElementById("title").innerText = data.title;
+    document.getElementById("thumb").src = data.thumbnail;
 }
 
-async function download(){
+async function downloadMP3() {
     const url = document.getElementById("url").value;
 
-    fetch(API+"/download",{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({url})
-    })
-    .then(res => res.blob())
-    .then(blob => {
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = "music.mp3";
-        a.click();
+    const res = await fetch(API + "/download", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: url })
     });
+
+    const blob = await res.blob();
+    const link = document.createElement("a");
+
+    link.href = window.URL.createObjectURL(blob);
+    link.download = "song.mp3";
+    link.click();
 }
